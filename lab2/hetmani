@@ -1,0 +1,175 @@
+print"Rozwiązania problemu hetmanów to:"
+
+res = 0
+szachownica = []
+rozmiar = 4
+ 
+ 
+def ups(wiersz, kolumna):
+    for (a, b) in szachownica:
+        if wiersz == a: return True
+        if kolumna == b: return True
+        if abs(wiersz - a) == abs(kolumna - b): return True
+    return False
+ 
+ 
+def hetman(wiersz):
+    global res
+    if wiersz > rozmiar:
+        res += 1
+        rysuj()
+        print "\n"
+   
+    else:
+        for kolumna in range(1, rozmiar + 1):
+            if not ups(wiersz, kolumna):
+                szachownica.append((wiersz, kolumna))
+                hetman(wiersz + 1)
+                szachownica.remove((wiersz, kolumna))
+ 
+ 
+def rysuj():
+    for wiersz in range(1, rozmiar + 1):
+        for kolumna in range(1, rozmiar + 1):
+            if (wiersz, kolumna) in szachownica:
+                print "H",
+            else:
+                print ".",
+        if kolumna == rozmiar:
+            print "\n"
+            
+if __name__ == "__main__":
+    hetman(1)
+    print "sposobów na ustawienie hetmanów jest:", res
+
+print"\n"
+
+print "kod do solwera to: \n"
+print "Maximize "
+n=rozmiar
+f = True
+for x in range(ord('a'), ord('a') + n):
+    for y in range(1, n + 1):
+        if f:
+            f = False
+        else:
+            print '+',
+        print chr(x) + str(y),
+       
+ 
+print "\n"    
+print "Subject To "
+ 
+#WIERSZE 
+
+ 
+for x in range(ord('a'), ord('a') + n):
+    f=True
+    j=1
+    for y in range(j,n+1):
+        j=j+1
+        if f:
+            f = False
+        else:
+            print '+',
+        print chr(x) + str(y),
+    print ' <= 1'
+print "\n"
+
+#KOLUMNY
+
+
+for y in range(1,n+1):
+    f=True
+    for x in range(ord('a'),ord('a')+n):
+        if f:
+            f = False
+        else:
+            print '+',
+        print chr(x) + str(y),
+    print ' <= 1'
+print "\n"    
+   
+#PRZEKĄTNE Z GP DO DL
+
+y=1
+for i in range(1,n+1):
+    f=True
+    y=i
+    for x in range(ord('a'), ord('a') + i):
+        if f:
+            f=False
+        else:
+            print '+',
+        print chr(x) + str(y),
+        y=y-1
+    print'<=1'
+
+y=1
+for i in range(1,n+1):
+    f=True
+    y=i
+    for x in range(ord('a'), ord('a') +i):
+        if f:
+            f=False
+        else:
+            print '+',
+        print chr(x+n-i) + str(y+n-i),
+        y=y-1
+    print'<=1'
+print"\n"
+
+#PRZEKĄTNE Z GL DO DP
+
+y=1
+for i in range(1,n+1):
+    f=True
+    y=1
+    for x in range(ord('a'), ord('a') +i):
+        if f:
+            f=False
+        else:
+            print '+',
+        print chr(x+n-i) + str(y),
+        y=y+1
+    print'<=1'
+    
+y=1
+for i in range(1,n):
+    f=True
+    y=1
+    for x in range(ord('a'), ord('a') +i):
+        if f:
+            f=False
+        else:
+            print '+',
+        print chr(x) + str(y+n-i),
+        y=y+1
+    print'<=1'
+ 
+print"\n"       
+print"Bounds"
+ 
+
+for y in range(1,n+1):
+    for x in range(ord('a'),ord('a')+n):
+        print "0 <=",
+        print chr(x) + str(y),
+    	print ' <= 1\n',
+print "\n"
+
+
+
+
+
+print "Generals"
+f=True
+for x in range(ord('a'), ord('a') + n):
+    j=1
+    for y in range(j,n+1):
+        j=j+1
+        if f:
+            f = False
+        print chr(x) + str(y)
+    
+    
