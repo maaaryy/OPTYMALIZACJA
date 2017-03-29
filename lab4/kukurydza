@@ -1,0 +1,35 @@
+%typeset_mode True
+
+
+ A = ([1, 1], [3, 1])
+ b = (1000, 1500)
+ c = (10, 5)
+ P = InteractiveLPProblemStandardForm(A, b, c, ["C", "B"], )
+ P
+ P.plot()
+ view(P)
+ D = P.initial_dictionary()
+ view(D)
+ 
+ D = P.initial_dictionary()
+view(D)
+print "D jest dopuszczalne: "+ str(D.is_feasible())
+print "D jest optmalne: " + str(D.is_optimal())
+
+print D.possible_entering()
+D.enter("C")
+print D.possible_leaving()
+D.leave("x4")
+view(D)
+
+D.update()
+view(D)
+
+print D.possible_entering()
+
+D.enter("B")
+print D.possible_leaving()
+
+D.leave("x3")
+D.update()
+view(D)
