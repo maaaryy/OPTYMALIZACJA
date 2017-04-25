@@ -1,0 +1,36 @@
+p=MixedIntegerLinearProgram(maximization=false)
+X=p.new_variable(nonnegative=true)
+Y=p.new_variable(nonnegative=true)
+
+A = ([1,2,-5] , [1, -4, -5], [1, -4, -6])
+b= (3, 4, 5)
+X = []
+Y=[]
+c= []
+k = 0
+l=0
+for i in range (len(A[0])):
+    k += 1
+    X.append("x" + str(k))
+    c.append(0)
+for i in range (len(b)):
+    l +=1
+    Y.append("y"+str(l))
+    c.append(0)
+for i in range (len(A[0])):
+    xi = X[i]
+    yi = Y[i]
+    
+for i in range (len(X)):
+    X[i]
+for i in range (len(b)):
+    p.add_constraint(A[i]*X[i] + Y[i]>=b[i])
+    i +=1
+
+    
+
+show(matrix(A))
+show(X,Y,c)
+show(matrix(A))
+show(X[1])
+show(Y[1])
